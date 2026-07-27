@@ -1,5 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 import {
   ArrowLeft, ArrowRight, ArrowUpRight, Target, Lightbulb, Sparkles,
   TrendingUp, Users, Compass, Map, PenTool, LayoutGrid, Layers,
@@ -30,31 +29,28 @@ export function CaseStudyPage({ slug }: { slug: string }) {
 }
 
 function CaseStudy({ project }: { project: Project }) {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
   const idx = projects.findIndex((p) => p.id === project.id);
   const next = projects[(idx + 1) % projects.length];
 
   return (
     <div className="relative">
       {/* ============ HERO ============ */}
-      <section ref={heroRef} className="relative min-h-screen flex flex-col justify-center pt-28 pb-16 px-4 md:px-6 overflow-hidden">
+      <section className="relative min-h-screen flex flex-col justify-center pt-28 pb-16 px-4 md:px-6 overflow-hidden">
         {/* themed aurora */}
         <div className="absolute inset-0 -z-10 overflow-hidden">
-          <motion.div
+          <div
             className="absolute -top-[20%] left-1/2 -translate-x-1/2 h-[60vh] w-[80vh] rounded-full blur-[140px]"
             style={{ background: `radial-gradient(circle, ${hexA(project.theme.primary, 0.4)}, transparent 60%)` }}
-            animate={{ scale: [1, 1.1, 1] }}
-            transition={{ duration: 12, repeat: Infinity }}
           />
           <div className="absolute inset-0 grid-bg-fine opacity-30 mask-fade-b" />
         </div>
 
         <div className="max-w-7xl mx-auto w-full">
-          <motion.div style={{ y: heroY, opacity: heroOpacity }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <Link to="/" className="inline-flex items-center gap-2 text-sm text-text-2 hover:text-white transition-colors mb-8">
               <ArrowLeft size={16} /> All work
             </Link>
@@ -89,7 +85,9 @@ function CaseStudy({ project }: { project: Project }) {
 
         {/* hero device mockup */}
         <motion.div
-          style={{ y: heroY, opacity: heroOpacity }}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.15 }}
           className="max-w-6xl mx-auto w-full mt-14"
         >
           <HeroDevice project={project} />

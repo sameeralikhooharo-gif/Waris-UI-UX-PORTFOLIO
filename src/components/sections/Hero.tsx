@@ -1,4 +1,4 @@
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowDown, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
@@ -36,58 +36,26 @@ function Counter({ to, suffix = '', prefix = '' }: { to: number; suffix?: string
 }
 
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-
   const nexus = projects[0];
   const vault = projects[1];
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 px-4 md:px-6 overflow-hidden">
-      {/* particle dots */}
-      <div className="absolute inset-0 -z-10">
-        {Array.from({ length: 28 }).map((_, i) => (
-          <motion.span
-            key={i}
-            className="absolute h-1 w-1 rounded-full bg-white/30"
-            style={{
-              left: `${(i * 37) % 100}%`,
-              top: `${(i * 53) % 100}%`,
-            }}
-            animate={{ y: [0, -20, 0], opacity: [0.1, 0.6, 0.1] }}
-            transition={{ duration: 4 + (i % 5), repeat: Infinity, delay: i * 0.2 }}
-          />
-        ))}
+    <section className="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 px-4 md:px-6 overflow-hidden">
+      {/* floating device mockups (background, static) */}
+      <div className="absolute right-[4%] top-[22%] w-[34%] hidden lg:block z-0 opacity-90">
+        <div className="scale-90 origin-top-right">
+          <BrowserFrame url="nexus-ai.app">
+            <Mockup kind="dashboard" theme={nexus.theme} />
+          </BrowserFrame>
+        </div>
       </div>
-
-      {/* floating device mockups (background) */}
-      <motion.div
-        style={{ y: y1, opacity }}
-        className="absolute right-[4%] top-[22%] w-[34%] hidden lg:block z-0"
-      >
-        <motion.div animate={{ y: [0, -16, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}>
-          <div className="opacity-90 scale-90 origin-top-right">
-            <BrowserFrame url="nexus-ai.app">
-              <Mockup kind="dashboard" theme={nexus.theme} />
-            </BrowserFrame>
-          </div>
-        </motion.div>
-      </motion.div>
-      <motion.div
-        style={{ y: y2, opacity }}
-        className="absolute left-[3%] bottom-[12%] w-[18%] hidden lg:block z-0"
-      >
-        <motion.div animate={{ y: [0, 18, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}>
-          <div className="rotate-[-6deg]">
-            <IPhoneFrame>
-              <Mockup kind="home" theme={vault.theme} />
-            </IPhoneFrame>
-          </div>
-        </motion.div>
-      </motion.div>
+      <div className="absolute left-[3%] bottom-[12%] w-[18%] hidden lg:block z-0">
+        <div className="rotate-[-6deg]">
+          <IPhoneFrame>
+            <Mockup kind="home" theme={vault.theme} />
+          </IPhoneFrame>
+        </div>
+      </div>
 
       {/* availability badge */}
       <motion.div
@@ -161,23 +129,16 @@ export function Hero() {
       </motion.div>
 
       {/* scroll indicator */}
-      <motion.div
-        style={{ opacity }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10"
-      >
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-10">
         <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-text-3">Scroll</span>
-        <motion.div
-          className="h-9 w-5 rounded-full border border-border-2 flex justify-center pt-1.5"
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
+        <div className="h-9 w-5 rounded-full border border-border-2 flex justify-center pt-1.5">
           <motion.div
             className="h-1.5 w-1 rounded-full bg-primary"
             animate={{ y: [0, 10, 0] }}
             transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
           />
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }
