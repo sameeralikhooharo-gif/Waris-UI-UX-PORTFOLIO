@@ -1,0 +1,8 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#050505"/>
+  <circle cx="900" cy="120" r="320" fill="#4F7CFF" opacity="0.18"/>
+  <circle cx="300" cy="520" r="280" fill="#7B61FF" opacity="0.15"/>
+  <text x="80" y="300" font-family="Space Grotesk, sans-serif" font-size="76" font-weight="700" fill="#FFFFFF">Muhammad Waris</text>
+  <text x="80" y="370" font-family="Inter, sans-serif" font-size="32" font-weight="400" fill="#A7AFBE">Senior UI/UX Designer — Luxury Digital Product Experiences</text>
+  <text x="80" y="540" font-family="JetBrains Mono, monospace" font-size="22" font-weight="500" fill="#00D5FF">SaaS · FinTech · Healthcare · Ecommerce · Real Estate · Travel</text>
+</svg>
